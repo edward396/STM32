@@ -1,55 +1,33 @@
-#include "main.h"
+#include <stdio.h>
+#include "LEDs.h"
+#include "buttons.h"
+#include "registerAddress.h"
+#include "interrupts.h"
+#include "l3gd20.h"
 
-#define GPIOA_BASE_ADDR 0x40020000
-#define GPIOD_BASE_ADDR 0x40020C00
+int LED_Delay = 300;
 
-void LedInit(){
-	__HAL_RCC_GPIOD_CLK_ENABLE();
-	uint32_t* GPIOD_MODER = (uint32_t*)(GPIOD_BASE_ADDR + 0x00);
-	*GPIOD_MODER &= ~(0b11 << 24);
-	*GPIOD_MODER |= (0b01 << 24);
+void EXTI0_IRQHandler(){
+	if (buttonState()){
+		LED_Control(LED_Green, 1);
+	}
+	else{
+		LED_Control(LED_Green, 0);
+	}
+	EXTI_REG -> PR = (1 << 0); //Clear the bit so there is no pending flag
 }
 
-void ButtonInit(){
-	__HAL_RCC_GPIOA_CLK_ENABLE();
-	uint32_t* GPIOA_MODER = (uint32_t*)(GPIOA_BASE_ADDR+ 0x00);
-	*GPIOA_MODER &= ~(0b11 << 0);
-}
-
-void LedCtrl(int on_off)
-{
-#if 0
-	uint32_t* GPIOD_ODR = (uint32_t*)(GPIOD_BASE_ADDR + 0x14);
-	if(on_off == 1)
-	{
-		*GPIOD_ODR |= (1 << 12);
-	}
-	else
-	{
-		*GPIOD_ODR &= ~(1<<12);
-	}
-#else
-	uint32_t* GPIOD_BSRR = (uint32_t*)(GPIOD_BASE_ADDR + 0x18);
-	if(on_off == 1)
-	{
-		*GPIOD_BSRR |= (1<<12);
-	}
-	else
-	{
-		*GPIOD_BSRR |= (1<<28);
-	}
-#endif
-}
-
-int main(){
+int main(void){
 	HAL_Init();
-	LedInit();
-	ButtonInit();
+	EXTI0_Init();
+	LED_Green_Init();
+	LED_Red_Init();
+	buttonB1Init();
+
 	while(1){
-		LedCtrl(1);
-		HAL_Delay(1000);
-		LedCtrl(0);
-		HAL_Delay(1000);
+		LED_Control(LED_Red, 1);
+		HAL_Delay(LED_Delay);
+		LED_Control(LED_Red, 0);
+		HAL_Delay(LED_Delay);
 	}
-	return 0;
 }
