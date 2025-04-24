@@ -31,7 +31,6 @@ void LED_Blue_Init(){
 	__HAL_RCC_GPIOD_CLK_ENABLE(); //Enable RCC Clook
 	GPIOD_REG -> MODER &= ~(0b11 << 30);
 	GPIOD_REG -> MODER |= (0b01 << 30);
-
 }
 
 //Activate LEDs

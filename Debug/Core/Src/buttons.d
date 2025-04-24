@@ -1,4 +1,4 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/LEDs.h \
+Core/Src/buttons.o: ../Core/Src/buttons.c ../Core/Inc/buttons.h \
  ../Core/Inc/registerAddress.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
@@ -25,8 +25,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/LEDs.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
- ../Core/Inc/buttons.h ../Core/Inc/l3gd20.h
-../Core/Inc/LEDs.h:
+ ../Core/Inc/LEDs.h
+../Core/Inc/buttons.h:
 ../Core/Inc/registerAddress.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -53,5 +53,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/LEDs.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
-../Core/Inc/buttons.h:
-../Core/Inc/l3gd20.h:
+../Core/Inc/LEDs.h:

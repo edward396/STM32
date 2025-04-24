@@ -2,7 +2,6 @@
 #include "LEDs.h"
 #include "buttons.h"
 #include "registerAddress.h"
-#include "interrupts.h"
 #include "l3gd20.h"
 
 int LED_Delay = 300;
@@ -19,7 +18,6 @@ void EXTI0_IRQHandler(){
 
 int main(void){
 	HAL_Init();
-	EXTI0_Init();
 	LED_Green_Init();
 	LED_Red_Init();
 	buttonB1Init();
