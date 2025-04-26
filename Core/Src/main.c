@@ -89,6 +89,25 @@ void EXTI0Init()
 
 	uint32_t* NVIC_ISER0 = (uint32_t*)0xE000E100;
 	*NVIC_ISER0 |= 1<<6;
+
+
+
+
+
+	//Move vector table to RAM (0x20000000)
+	uint8_t* src = 0;
+	uint8_t* dis = 0x20000000;
+	for(int i = 0; i < 0x198; i ++){ //0->0x198 is the size of the vector table
+		*(dis + i) = *(src + i);
+	}
+
+	//Telling ARM that the vector table was moved
+	uint32_t* VTOR = (uint32_t*) 0XE000ED08;
+	*VTOR = 0x20000000;
+
+	int *ptr;
+	ptr = 0x58;
+	*ptr = function;
 }
 
 void EXTI0_IRQHandler()
